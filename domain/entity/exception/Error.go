@@ -18,6 +18,7 @@ var statusText = map[int]string{
 type Error struct {
 	ErrorCode    int    `json:"errorCode"`
 	ErrorMessage string `json:"errorMessage"`
+	RootCause    string `json:"-"`
 }
 
 func GetError(code int) *Error {
@@ -26,6 +27,10 @@ func GetError(code int) *Error {
 
 func CreateError(code int, message string) *Error {
 	return &Error{ErrorCode: code, ErrorMessage: message}
+}
+
+func CreateErrorWithRootCause(code int, message string, err error) *Error {
+	return &Error{ErrorCode: code, ErrorMessage: message, RootCause: err.Error()}
 }
 
 func GetErrorMessage(code int) string {

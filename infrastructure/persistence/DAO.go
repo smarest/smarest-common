@@ -29,8 +29,8 @@ func (dao *DAOImpl) Select(holder interface{}, sql string, args ...interface{}) 
 	return dao.DbMap.Select(holder, sql, args...)
 }
 
-func (dao *DAOImpl) SelectOnce(holder interface{}, sql string, args ...interface{}) error {
-	return dao.DbMap.SelectOne(holder, sql, args...)
+func (dao *DAOImpl) SelectOne(holder interface{}, query string, args ...interface{}) error {
+	return dao.DbMap.SelectOne(holder, query, args...)
 }
 
 func (dao *DAOImpl) Exec(queryString string, args ...interface{}) (sql.Result, error) {

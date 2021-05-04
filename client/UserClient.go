@@ -8,11 +8,11 @@ import (
 
 type UserClient struct {
 	EntryPoint string
-	*POSClient
+	*BaseClient
 }
 
 func NewUserClient(host string, timeout int) *UserClient {
-	return &UserClient{"/v1/user", NewPOSClient(host, timeout)}
+	return &UserClient{"/v1/user", NewBaseClient(host, timeout)}
 }
 
 func (c *UserClient) GetUser(requestResource *resource.RequestResource) (*http.Response, error) {

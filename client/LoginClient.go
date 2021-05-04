@@ -6,23 +6,16 @@ import (
 )
 
 type LoginClient struct {
-	UserEntryPoint       string
-	RestaurantEntryPoint string
-	*POSClient
+	UserEntryPoint string
+	*BaseClient
 }
 
 func NewLoginClient(host string, timeout int) *LoginClient {
-	return &LoginClient{"/v1/login/user", "/v1/login/restaurant", NewPOSClient(host, timeout)}
+	return &LoginClient{"/v1/login/user", NewBaseClient(host, timeout)}
 }
 
 func (c *LoginClient) GetUserByCookie(cookie string) (*http.Response, error) {
-	url := fmt.Sprintf("%s%s/%s", c.Host, c.UserEntryPoint, cookie)
+	url := fmt.Sprintf("%s/v1/cookie/%s/user", c.Host, cookie)
 
 	return c.DoGetRequest(url)
-}
-
-func (c *LoginClient) PostRestaurant(requestResource interface{}) (*http.Response, error) {
-	url := fmt.Sprintf("%s%s", c.Host, c.RestaurantEntryPoint)
-
-	return c.exchange(url, "POST", &requestResource)
 }

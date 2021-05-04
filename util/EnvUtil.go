@@ -6,7 +6,9 @@ import (
 )
 
 const (
-	PARAM_FROM_URL = "frm"
+	PARAM_FROM_URL           = "frm"
+	CATEGORY_TYPE_PRODUCT    = "P"
+	CATEGORY_TYPE_INGREDIENT = "I"
 )
 
 // GetEnvDefault get required environment

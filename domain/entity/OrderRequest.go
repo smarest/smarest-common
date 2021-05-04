@@ -11,32 +11,25 @@ type OrderRequestRecord struct {
 	ID        *int64 `json:"id"`
 	TableID   int64  `json:"tableID"`
 	ProductID int64  `json:"productID"`
-	Count     int64  `json:"count"`
 	Comments  string `json:"comments"`
 }
 
-func (l *OrderRequest) GetDistinctProductIDs() []int64 {
-	keys := make(map[int64]bool)
-	result := make([]int64, 0)
+func (l *OrderRequest) GetDistinctProductIDsAndTableIDs() ([]int64, []int64) {
+	productKeys := make(map[int64]bool)
+	tableKeys := make(map[int64]bool)
+	productResult := make([]int64, 0)
+	tableResult := make([]int64, 0)
 	for _, u := range l.OrderRequestRecords {
-		if _, value := keys[u.ProductID]; !value {
-			result = append(result, u.ProductID)
-			keys[u.ProductID] = true
+		if _, value := productKeys[u.ProductID]; !value {
+			productResult = append(productResult, u.ProductID)
+			productKeys[u.ProductID] = true
+		}
+		if _, value := tableKeys[u.TableID]; !value {
+			tableResult = append(tableResult, u.TableID)
+			tableKeys[u.TableID] = true
 		}
 	}
-	return result
-}
-
-func (l *OrderRequest) GetDistinctTableIDs() []int64 {
-	keys := make(map[int64]bool)
-	result := make([]int64, 0)
-	for _, u := range l.OrderRequestRecords {
-		if _, value := keys[u.TableID]; !value {
-			result = append(result, u.TableID)
-			keys[u.TableID] = true
-		}
-	}
-	return result
+	return productResult, tableResult
 }
 
 func (l *OrderRequest) Discover() ([]OrderRequestRecord, []OrderRequestRecord, []int64) {
@@ -68,4 +61,8 @@ func (l *OrderRequest) HasOrder(orderId int64) bool {
 		}
 	}
 	return false
+}
+
+func (l *OrderRequest) IsEmpty() bool {
+	return len(l.OrderRequestRecords) == 0
 }

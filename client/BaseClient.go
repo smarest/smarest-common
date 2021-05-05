@@ -23,7 +23,7 @@ func NewBaseClient(host string, timeout int) *BaseClient {
 }
 
 func (c *BaseClient) DoGetRequest(url string) (*http.Response, error) {
-	log.Printf("url[%s] method[get]", url)
+	log.Printf("method[get] url[%s]", url)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("can not create http request. [%w]", err)
@@ -50,7 +50,7 @@ func (c *BaseClient) DoPutRequest(url string, requestResource interface{}) (*htt
 }
 
 func (c *BaseClient) exchange(url string, method string, requestResource interface{}) (*http.Response, error) {
-	log.Printf("url[%s] method[%s] body[%+v]", url, method, requestResource)
+	log.Printf("method[%s] url[%s] body[%+v]", method, url, requestResource)
 	var requestBody *bytes.Buffer = nil
 	if requestResource != nil {
 		body, err := json.Marshal(requestResource)

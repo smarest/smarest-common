@@ -33,6 +33,10 @@ func CreateErrorWithRootCause(code int, message string, err error) *Error {
 	return &Error{ErrorCode: code, ErrorMessage: message, RootCause: err.Error()}
 }
 
+func CreateErrorWithDetail(code int, message string, err string) *Error {
+	return &Error{ErrorCode: code, ErrorMessage: message, RootCause: err}
+}
+
 func GetErrorMessage(code int) string {
 	return statusText[code]
 }

@@ -12,6 +12,9 @@ const (
 	ORDER_SORT_BY_PRODUCT    = "product"
 	ORDER_SORT_BY_TIME       = "time"
 	ORDER_GROUP_BY_PRODUCT   = "product"
+
+	APPLICATION_TYPE_WEB_PORTAL = "apt_portal"
+	APPLICATION_TYPE_API        = "apt_api"
 )
 
 // GetEnvDefault get required environment
